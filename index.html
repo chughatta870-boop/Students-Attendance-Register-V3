@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Attendance App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0d6efd" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- LOGIN SCREEN -->
+    <section id="loginScreen" class="screen active">
+      <div class="card login-card">
+        <h1>Advanced Attendance App</h1>
+        <p class="muted">Teacher Login</p>
+
+        <div class="form-grid one-col">
+          <input type="text" id="loginTeacherName" placeholder="Teacher Name" />
+          <input type="text" id="loginSchoolName" placeholder="School Name" />
+          <input type="text" id="loginUsername" placeholder="Username" />
+          <input type="password" id="loginPassword" placeholder="Password" />
+          <button id="loginBtn">Login / Start</button>
+        </div>
+
+        <div class="demo-note">
+          <p><strong>Note:</strong> First time you can enter any username/password. It will be saved for next login.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APP SCREEN -->
+    <section id="appScreen" class="screen">
+      <header class="topbar">
+        <div>
+          <h1>Student Attendance Register</h1>
+          <p id="schoolInfo" class="muted"></p>
+        </div>
+        <div class="topbar-actions">
+          <button id="themeToggleBtn" class="secondary">🌙 Dark Mode</button>
+          <button id="logoutBtn" class="danger">Logout</button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section class="dashboard-grid">
+        <div class="dash-card">
+          <h3>Total Students</h3>
+          <p id="totalStudentsCard">0</p>
+        </div>
+        <div class="dash-card">
+          <h3>Present Today</h3>
+          <p id="presentCard">0</p>
+        </div>
+        <div class="dash-card">
+          <h3>Absent Today</h3>
+          <p id="absentCard">0</p>
+        </div>
+        <div class="dash-card">
+          <h3>Leave Today</h3>
+          <p id="leaveCard">0</p>
+        </div>
+      </section>
+
+      <!-- STUDENT FORM -->
+      <section class="card">
+        <div class="section-head">
+          <h2 id="studentFormTitle">Add Student</h2>
+          <span class="muted small">You can add, edit and delete students</span>
+        </div>
+
+        <div class="form-grid">
+          <input type="hidden" id="editStudentId" />
+          <input type="text" id="studentName" placeholder="Student Name" />
+          <input type="text" id="studentRoll" placeholder="Roll Number" />
+          <input type="text" id="studentClass" placeholder="Class (e.g. 10th)" />
+          <button id="saveStudentBtn">Save Student</button>
+        </div>
+      </section>
+
+      <!-- ATTENDANCE CONTROLS -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Attendance Controls</h2>
+          <span class="muted small">Select date, search, filter and save attendance</span>
+        </div>
+
+        <div class="controls-grid">
+          <div>
+            <label for="attendanceDate">Attendance Date</label>
+            <input type="date" id="attendanceDate" />
+          </div>
+
+          <div>
+            <label for="searchStudent">Search Student</label>
+            <input type="text" id="searchStudent" placeholder="Search by name / roll" />
+          </div>
+
+          <div>
+            <label for="classFilter">Filter by Class</label>
+            <select id="classFilter">
+              <option value="all">All Classes</option>
+            </select>
+          </div>
+
+          <div class="button-group">
+            <button id="saveAttendanceBtn">Save Attendance</button>
+            <button id="resetTodayStatusBtn" class="secondary">Reset Today Status</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STUDENTS TABLE -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Students List</h2>
+          <div class="table-actions">
+            <button id="exportStudentsBtn" class="secondary">Export Student List CSV</button>
+            <button id="clearAllBtn" class="danger">Clear All Data</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="studentsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Class</th>
+                <th>Present</th>
+                <th>Absent</th>
+                <th>Leave</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MONTHLY REPORT -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Monthly Attendance Report</h2>
+          <div class="report-controls">
+            <input type="month" id="reportMonth" />
+            <button id="generateReportBtn">Generate Report</button>
+            <button id="exportReportBtn" class="secondary">Export Monthly Report CSV</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="reportTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Class</th>
+                <th>Present</th>
+                <th>Absent</th>
+                <th>Leave</th>
+                <th>Total Marked Days</th>
+              </tr>
+            </thead>
+            <tbody id="reportTableBody">
+              <tr>
+                <td colspan="8" class="center muted">No report generated yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ATTENDANCE HISTORY -->
+      <section class="card">
+        <div class="section-head">
+          <h2>Attendance History</h2>
+          <span class="muted small">Saved date-wise attendance records</span>
+        </div>
+        <div id="historyContainer" class="history-container">
+          <p class="center muted">No attendance saved yet.</p>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
